@@ -1,0 +1,290 @@
+字体图标  上ICONFONT网站下载
+	使用：网站下载之后，将文件夹放至根目录，需要用的时候引入iconfont样式表，然后写标签
+
+平面
+
+    平面转换：使用transform属性实现元素的位移、旋转、缩放等效果
+
+	位移  transform:translate(x,y);     取值：像素/百分比     单独向某个方向移动translateX()/translateY();
+
+	旋转   transform:rotate(角度);      角度正数为顺时针转，例：transform:rotate(360deg);
+	 该效果必须配合过渡transition
+	   转换原点 transform-origin：x y;	默认原点是盒子中心点；取值：方位名词/像素/百分比
+	   多重转换（有多种形态的变化）transform:translate() rotate();
+
+	缩放    transform:scale(缩放倍数）     scale值>1是放大，<1是缩小
+
+    渐变   background-image:linear-gradient(颜色，颜色）      transparent透明      例： background-image:linear-gradient(transparent，rgba(0,0,.5）;
+
+
+空间转换（3D转换）    使用transform属性属性实现元素空间的位移、旋转、缩放等效果
+
+    位移：transform:translate3D(x,y,z);
+
+          透视 perspective   使用空间转换Z坐标的位移需要配合透视属性实现
+          目标：使用perspective属性实现透视效果
+           属性：添加给父级，像素单位，数值一般在800-1200（视距）
+
+    旋转：使用rotate实现元素空间旋转
+              transform:rotateZ();/:rotateX();/:rotateY();
+	拓展：自定义旋转轴的位置及旋转角度：rotate3d(x,y,z,角度度数)；xyz取值为0-1之间的数字
+
+    立体呈现   transform-style:perserve-3d     透视perspective在这没用
+	该属性使子级处于真正的3D空间，默认值flat，表示子元素处于2D平面内呈现
+
+    空间缩放    使用scale实现空间缩放效果
+        语法：transform:scaleX(缩放倍数）/transform:scaleY(缩放倍数）/transform:scaleZ(缩放倍数）/transform:scale3D(x,y,z）
+
+
+
+
+
+
+
+
+动画	目标：使用animation添加动画效果
+
+    实现步骤：
+	1、定义动画。@keyframes 动画名称{	//两个动态之间的变化
+			from{}
+			to{}
+		       }
+	  或 @keyframes 动画名称{		//多个状态之间的变化
+		0%{}			//百分比指的是动画总时长的占比
+		10%{}
+		15%{}
+		100%{}
+	       }
+	2、使用动画：animation：动画名称 动画花费时长;
+
+    动画属性：使用animation相关属性控制动画执行过程
+	animation:动画名称 动画时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕时状态;
+	动画名称和时长必备；取值不分先后顺序；如果有两个时间值，第一个表示动画时长，第二个表示延迟时间。
+
+    animation拆分写法
+	animation-name		动画名称	
+	animation-duration		动画时长
+	animation-delay		延迟时间
+	animation-fill-more		动画执行完毕时状态		forwards最后一帧状态；backwards第一帧状态
+	animation-timing-function	速度曲线			steps（数字）：逐帧动画（一般配合精灵图使用）
+	animation-iteration-count	重复次数			infinite无限循环
+	animation-direction		动画执行方向		alternate为反向
+	animation-play-state	暂停动画			paused为暂停，通常配合：hover使用
+
+
+
+
+
+
+
+
+
+
+移动web
+
+    移动端特点
+	手机屏幕小，网页宽度多为100%
+
+    分辨率
+         物理分辨率：生产屏幕时就固定的，不可改变。
+         逻辑分辨率：由软件（驱动）决定的（可以设置缩放），基于逻辑分辨率开发
+
+    视口
+        视口标签：实现网页的宽度与设备的宽度一样
+        <meta name="viewport" ...>  html5默认自带有
+
+    百分比布局     width:100%
+
+
+
+flex布局（弹性布局）
+
+    是一种浏览器提倡的布局模型；布局网页更简单、灵活；避免浮动脱标的问题。
+
+	拓展：查技术兼容性网站：can i use
+
+    设置方式：父元素添加display:flex;   子元素可以自动的挤压或拉伸
+    组成部分：弹性容器（父元素），弹性盒子（子元素），主轴，侧轴（交叉轴）
+
+    主轴对齐方式	justify-content调节元素在主轴的对齐方式（添加到父级）
+	flex-start		默认值，起点开始依次排列
+	flex-end		终点开始依次排列
+	center		沿主轴居中排列
+	space-around	弹性盒子沿主轴均匀排列，空白间距均分在弹性盒子两侧
+	space-between	弹性盒子沿主轴均匀排列，空白间距均分在相邻盒子之间，盒子与容器无间距
+	space-evently	弹性盒子沿主轴均匀排列，弹性盒子与容器之间间距相等
+
+    侧轴对齐方式    align-items（添加到弹性容器/父级）     align-self（添加到子级）
+	flex-start		默认值，起点开始依次排列
+	flex-end		终点开始依次排列
+	center		沿侧轴居中排列
+	stretch		默认值，弹性盒子沿着主轴线被拉伸至铺满容器
+
+    伸缩比：使用flex属性修改弹性盒子伸缩比     flex:（整数）;
+        PS：只占用父盒子剩余尺寸
+
+    主轴方向：使用flex-direction改变元素排列方向
+	主轴默认是水平方向，侧轴默认是垂直方向
+	row		行，水平（默认值）
+	column		列，垂直
+	row-reverse	行，从右往左
+	column-reverse	列，从下往上
+
+    弹性盒子换行：使用flex-wrap实现弹性盒子多行排列效果
+	在父级设置flex-wrap:wrap;
+    调整行对齐方式：align-content       取值与justify-content相同
+
+
+	拓展：文字溢出用省略号隐藏的css：
+				text-overflow:ellipsis;
+				white-space:nowrap;	//不换行
+				overflow:hidden;
+		PS：如果未隐藏，需考虑盒子宽度是否有设置，弹性盒子需在父级设置flex:1; width:0;
+
+
+
+
+
+
+
+移动适配
+
+    解决方案：
+	1、rem：现在多数企业使用
+	2、vm/vh：未来的解决方案
+
+    rem单位
+        相对单位；rem单位是相对于HTML标签的字号计算结果；1rem=1HTML字号大小
+    rem移动适配：能够使用rem单位设置网页元素的尺寸
+    rem移动适配-媒体查询：能够使用媒体查询设置差异化CSS样式
+	写法：@media (媒体特性){
+		选择器{}
+		}
+	例：@media (width:375px){
+		html{
+		    font-size:40px;
+		    }
+		}	//当检测到媒体视口宽度为375px时，字号40px生效。
+
+    目前rem布局方案中，将网页等分成10份，HTML标签的字号为视口宽度的1/10
+
+    rem适配原理
+
+
+
+    flexible移动适配：使用flexible js配合rem实现在不同宽度的设备中，网页元素尺寸等比缩放效果
+        flexible.js时手淘开发出的一个用来适配移动端的js框架；
+        核心原理就是根据不同的视口宽度给网页中html根节点设置不同的font-size。
+	使用：用script标签在body里面引用js文件，注意要放在body结束前的位置。
+
+
+
+    Less语法：使用Less运算写法完成px单位到rem单位的转换
+        Less：使用less语法快速生成css代码
+        Less是一个CSS预处理器，Less文件后缀是.less
+        扩充了CSS语言，使CSS具备一定的逻辑性、计算能力。
+        PS：浏览器不识别Less代码，目前阶段，网页要引入对应的CSS文件
+　　VS要下载插件easy　less使用
+　　
+　　Less注释
+　　单行注释：／／注释内容		快捷键：CTRL＋／
+　　块注释：／＊＊／		快捷键：shift+alt+／
+
+　　Less运算
+　　加减乘正常写；除要加括号或者加．（less新版本4.0适用）　　例：（100／100）或者100.／100
+
+　　Less嵌套　　作用：快速生成后代选择器
+　　　.father{
+   　　　　 width: 100px;
+   　　　　 .son{
+        　　　　　height: 200px;
+    　　}
+　　　}
+　　　＆表示不生产子选择器，仍在当前选择器，一般用来加伪元素
+
+　　Less变量：存储数据，方便使用和修改。
+　　语法：定义变量：＠变量名：值；	使用变量：CSS属性：＠变量名；
+
+　　Less导入（把其他．less文件导入less文件）
+　　语法：＠import　‘文件路径’；
+
+　　Less导出
+　　插件设置（把less文件生成的CSS文件设置导出到CSS文件夹里）：
+　　　　　　设置－＞搜索easy less-＞点击　在settings．json中编辑-＞在compile里面加入语句：“out”：“CSS路径”   例：“out”:“../css/”
+　　　单独路径（如果有单独的less文件需要导出到指定文件夹）：
+　　　　　　在less文件的第一行加 //out：指定文件夹路径
+　　禁止导出：在less文件第一行添加：//out：false
+
+
+　　vw／vh单位：相对单位，相对视口的尺寸计算结果
+　　　　vw：viewport　width	　　　　1vw＝1／100视口宽度	
+　　　　vh：viewport　height		1vh＝1／100视口高度
+
+　　vw适配原理
+　　　　vw单位的尺寸＝px单位数值／（1／100视口宽度）
+　　vh同理
+
+
+
+
+
+
+
+
+
+
+响应式网页
+
+    媒体查询：能够根据设备宽度的变化，设置差异化样式
+    	写法：@media (媒体特性){
+		选择器{}
+		}
+     	媒体特性常用写法：max-width     min-width
+        书写顺序（层叠性）：min-width（从小到大写）    max-width（从大到小）
+
+        认识
+        完整写法：@media 关键词 媒体类型 and （媒体特性）{ CSS代码 }
+            关键词：and  only not
+            媒体类型：screen（屏幕）；print（打印预览）；speech（阅读器：屏幕阅读模式）；all（不区分类型）
+            媒体特性：width/height（视口宽高）；max-width/max-height（视口最大宽高）；min-width/min-height（视口最小宽高）；orientation（屏幕方向；取值为portrait竖屏，landscape横屏）
+
+        媒体查询-link写法
+        <link rel="stylesheet" media="逻辑符 媒体类型 and （媒体特性）" href="xx.css">     一般media里面只写（媒体特性），然后导入xx.css样式表
+
+        电商网站：隐藏设置display:none;
+
+
+
+    BootStrap	目标：使用BootStrap框架快速开发响应式网页
+
+    下载：https://www.bootcss.com/    首页->Bootstrap3中文文档->下载->下载Bootstrap
+	dist文件是生产环境的代码，用于写代码时引用
+
+    使用步骤：1、引入：BootStrap提供的CSS代码
+		<link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">   
+	                PS：bootstrap.min.css文件与bootstrap.css内容是一样的，只是体积比较小，响应比较快，推荐使用
+	     2、调用类：使用BootStrap提供的样式。container：响应式布局版心类
+
+    BootStrap栅格系统
+        栅格化是指将整个网页的宽度分成若干等份。BootStrap3默认将网页分成12等份
+                ————768————992————1200————
+                超小屏幕           小屏幕        中等屏幕          大屏幕
+                     xs                  sm	              md	     lg
+
+        栅格系统其他类名
+        .container类有左右内边距15px，.row类左右内边距-15px，如果不需要.container类的左右边距，可以再调用.row类
+
+    BootStrap
+
+         BootStrap网页中 全局CSS样式和组件（字体图标及其他）都是直接在标签中调用类
+	              JavaScript插件使用步骤是：先引入两个js文件，再引入Bootstrap.css文件，最后调用类
+
+
+
+
+
+
+
+
+　　
+
